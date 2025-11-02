@@ -2,7 +2,7 @@
 
 This project demonstrates multi-document ACID transactions in MongoDB by simulating a simple game economy.
 
-> ⚙️ It includes scripts for:
+>  It includes scripts for:
 >
 > - Buying an item from a store.
 > - Selling an item back to the store.
