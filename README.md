@@ -1,4 +1,4 @@
-# 🎮 Transactional Game Ledger
+#  Transactional Game Ledger
 
 This project demonstrates multi-document ACID transactions in MongoDB by simulating a simple game economy.
 
@@ -11,7 +11,7 @@ This project demonstrates multi-document ACID transactions in MongoDB by simulat
 
 ---
 
-## 🛠️ How to Run Locally
+##  How to Run Locally
 
 ### Prerequisites
 
@@ -48,7 +48,7 @@ Your script will fail to connect unless you allow your computer's IP address to 
 
 ---
 
-## 🚀 Demonstration Sequence
+##  Demonstration Sequence
 
 To see the full story, run the scripts in your terminal in this order.
 
@@ -141,8 +141,8 @@ Disconnected.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 - **Shanmukh Venkata Nutulapati**
-- 📧 nvshanmukh28@gmail.com
-- 🔗 GitHub: [nvshanmukh](https://github.com/nvshanmukh)
+- Email: nvshanmukh28@gmail.com
+- GitHub: [nvshanmukh](https://github.com/nvshanmukh)
