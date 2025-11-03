@@ -109,9 +109,9 @@ Transaction committed successfully!
 Checking final balance...
 User 'dumkid' final balance: 1100
 Disconnected.
+```
 
-
-### 4. Trade the Item
+### 4. Trade Item
 
 `dumkid` sells the "Ender Flame Skin" to `bond007` for 600 currency.
 
@@ -136,7 +136,7 @@ Disconnected.
 
 - At this point: `dumkid` has 1000 (1500-1000+800), `bond007` has 1000 (1500-800), and `bond007` owns the item.
 
-### 4. Prove the "Rollback"
+### 5. Prove the "Rollback"
 
 This is the most important test. It proves that if an error happens, the user's money is safe.
 
