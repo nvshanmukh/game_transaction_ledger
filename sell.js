@@ -1,9 +1,9 @@
 const { connectToDb, closeDb, client } = require('./db');
 
 async function runSellDemo() {
-  console.log("Starting 'Sell' transaction demo...");
 
   const session = client.startSession();
+  const sellerUsername = "dumkid"; 
 
   try {
     session.startTransaction();
@@ -11,9 +11,8 @@ async function runSellDemo() {
 
     const { users, items } = await connectToDb();
 
-    const sellerUsername = "dumkid";
     const itemSkuToSell = "ENDER_FLAME_01";
-    const refundAmount = 800; 
+    const refundAmount = 600; 
 
     const seller = await users.findOne({ username: sellerUsername }, { session });
     if (!seller) {
@@ -34,7 +33,7 @@ async function runSellDemo() {
       { session }
     );
 
-    console.log(`1. Item ${itemToSell.item_name} deleted...`);
+    console.log(`1. Item ${itemToSell.item_name || itemSkuToSell} deleted...`);
 
     const updateUserResult = await users.updateOne(
       { _id: seller._id },
@@ -53,6 +52,19 @@ async function runSellDemo() {
     console.log("Transaction aborted.");
 
   } finally {
+    console.log("Checking final balance...");
+    try {
+      const { users } = await connectToDb(); // Re-connect to get fresh data
+      const user = await users.findOne({ username: sellerUsername });
+      if (user) {
+        console.log(`User '${user.username}' final balance: ${user.currency_balance}`);
+      } else {
+        console.log(`Could not find user ${sellerUsername}.`);
+      }
+    } catch (err) {
+      console.error("Error checking final balance:", err.message);
+    }
+
     await session.endSession();
     await closeDb();
   }

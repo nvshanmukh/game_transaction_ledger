@@ -1,7 +1,6 @@
 const { connectToDb, closeDb, client } = require('./db');
 
 async function runFailDemo() {
-  console.log("Starting 'Fail' transaction demo...");
   const session = client.startSession();
 
   const { db, users, items } = await connectToDb();

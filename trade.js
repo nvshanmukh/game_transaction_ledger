@@ -1,10 +1,12 @@
-
 const { connectToDb, closeDb, client } = require('./db');
 
 async function runTradeDemo() {
   console.log("Starting 'P2P Trade' transaction");
 
   const session = client.startSession();
+  
+  const sellerUsername = "dumkid";
+  const buyerUsername = "bond007";
 
   try {
     session.startTransaction();
@@ -12,10 +14,8 @@ async function runTradeDemo() {
 
     const { users, items } = await connectToDb();
 
-    const sellerUsername = "dumkid";
-    const buyerUsername = "bond007";
     const itemSkuToTrade = "ENDER_FLAME_01";
-    const tradePrice = 500;
+    const tradePrice = 800;
 
     const seller = await users.findOne({ username: sellerUsername }, { session });
     const buyer = await users.findOne({ username: buyerUsername }, { session });
@@ -56,7 +56,7 @@ async function runTradeDemo() {
       { $set: { owner_user_id: buyer._id } },
       { session }
     );
-    console.log(`3. Item ${itemToTrade.item_name} owner updated...`);
+    console.log(`3. Item ${itemToTrade.item_name || itemSkuToTrade} owner updated...`);
 
     await session.commitTransaction();
     console.log("Transaction committed successfully! The trade is complete.");
@@ -67,6 +67,26 @@ async function runTradeDemo() {
     console.log("Transaction aborted.");
 
   } finally {
+    console.log("Checking final balances...");
+    try {
+      const { users } = await connectToDb();
+      const seller = await users.findOne({ username: sellerUsername });
+      const buyer = await users.findOne({ username: buyerUsername });
+
+      if (seller) {
+        console.log(`User '${seller.username}' final balance: ${seller.currency_balance}`);
+      } else {
+        console.log(`Could not find user ${sellerUsername}.`);
+      }
+      if (buyer) {
+        console.log(`User '${buyer.username}' final balance: ${buyer.currency_balance}`);
+      } else {
+        console.log(`Could not find user ${buyerUsername}.`);
+      }
+    } catch (err) {
+      console.error("Error checking final balance:", err.message);
+    }
+    
     await session.endSession();
     await closeDb();
   }

@@ -91,9 +91,29 @@ Transaction successful
 Disconnected.
 ```
 
-### 3. Trade the Item
+### 3. Sell an Item
 
-`dumkid` sells the "Ender Flame Skin" to `bond007` for 500 currency.
+`dumkid` sells an "Ender Flame Skin" for 600 currency.
+
+```bash
+node sell.js
+```
+
+**Expected Output:**
+
+```
+Transaction started...
+1. Item Ender Flame Skin deleted...
+2. User balance updated...
+Transaction committed successfully!
+Checking final balance...
+User 'dumkid' final balance: 1100
+Disconnected.
+
+
+### 4. Trade the Item
+
+`dumkid` sells the "Ender Flame Skin" to `bond007` for 600 currency.
 
 ```bash
 node trade.js
@@ -104,15 +124,17 @@ node trade.js
 ```
 Starting 'P2P Trade' transaction
 Transaction started...
-MongoDB
 1. Seller dumkid's balance updated...
 2. Buyer bond007's balance updated...
 3. Item Ender Flame Skin owner updated...
 Transaction committed successfully! The trade is complete.
+Checking final balances...
+User 'dumkid' final balance: 1300
+User 'bond007' final balance: 900
 Disconnected.
 ```
 
-- At this point: `dumkid` has 1000 (1500-1000+500), `bond007` has 1000 (1500-500), and `bond007` owns the item.
+- At this point: `dumkid` has 1000 (1500-1000+800), `bond007` has 1000 (1500-800), and `bond007` owns the item.
 
 ### 4. Prove the "Rollback"
 
@@ -125,12 +147,10 @@ node fail.js
 **Expected Output:**
 
 ```
-Starting 'Fail' transaction demo...
-MongoDB
-...
+Transaction started
 1. User balance updated (in-memory)...
 2. Attempting to create a new item with a duplicate ID...
-An error occurred: E11000 duplicate key error...
+An error occurred: E11000 duplicate key error collection: ...
 Transaction aborted. Rollback initiated.
 Checking user's balance post-rollback...
 User 'dumkid' final balance: 1000
