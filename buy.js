@@ -1,7 +1,6 @@
 const { connectToDb, closeDb, client } = require('./db');
 
 async function runBuyDemo() {
-  console.log("Starting 'Buy' transaction demo...");
 
   const session = client.startSession();
   const buyerUsername = "dumkid"; 
